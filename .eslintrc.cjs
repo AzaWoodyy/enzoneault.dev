@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require("path");
 
 /** @type {import("eslint").Linter.Config} */
@@ -6,6 +5,8 @@ const config = {
   overrides: [
     {
       extends: [
+        "airbnb",
+        "airbnb-typescript",
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
       ],
       files: ["*.ts", "*.tsx"],
