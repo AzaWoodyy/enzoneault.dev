@@ -2,9 +2,21 @@
 
 ## Installation
 
+Clone the project
+
 ```bash
 git clone
+```
+
+Go in the project's directory
+
+```bash
 cd enzoneault.dev
+```
+
+Install the dependencies
+
+```bash
 npm install
 ```
 
