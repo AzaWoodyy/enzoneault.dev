@@ -119,7 +119,7 @@ export const projects: readonly Project[] = [
   },
   {
     name: "enzoneault.dev",
-    description: "Ce site, reconstruit de zéro avec la famille de polices Geist.",
+    description: "Mon site personnel et CV en ligne.",
     stack: "Next.js 16 · Bun",
     href: "https://github.com/AzaWoodyy/enzoneault.dev",
   },

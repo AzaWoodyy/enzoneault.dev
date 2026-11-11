@@ -74,7 +74,8 @@ export function ScrollThread() {
 
       if (!exp || !edu) return;
 
-      const leftX = Math.max(8, exp.left - GUTTER);
+      // On narrow screens the margin is smaller than the gutter: center the thread in it instead of hugging the edge.
+      const leftX = Math.max(exp.left / 2, exp.left - GUTTER);
       const d = `M ${leftX} ${exp.top} L ${leftX} ${edu.bottom}`;
 
       svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
