@@ -5,7 +5,7 @@ import footer from "~/assets/footer-landscape.jpg";
 import { education, experience, footerAlt, languages, links, profile, projects, type TimelineEntry, tools } from "~/content";
 
 function SectionTitle({ children }: { children: string }) {
-  return <h2 className="font-mono text-[11px] tracking-wide text-ink/65 uppercase">{children}</h2>;
+  return <h2 className="font-mono text-[0.6875rem] tracking-wide text-ink/65 uppercase">{children}</h2>;
 }
 
 function Timeline({ entries }: { entries: readonly TimelineEntry[] }) {
@@ -13,14 +13,14 @@ function Timeline({ entries }: { entries: readonly TimelineEntry[] }) {
     <ol className="mt-5 space-y-6">
       {entries.map((entry) => (
         <li key={`${entry.period}-${entry.place}`} data-thread-dot className="grid gap-x-6 gap-y-1 sm:grid-cols-[7.5rem_1fr]">
-          <span className="pt-0.5 font-mono text-[12px] text-ink/65 tabular-nums">{entry.period}</span>
+          <span className="pt-0.5 font-mono text-[0.75rem] text-ink/65 tabular-nums">{entry.period}</span>
           <div>
-            <p className="text-ink">
-              {entry.title} <span className="text-ink/65">· {entry.place}</span>
+            <p className="font-medium text-ink">
+              {entry.title} <span className="font-normal text-ink/65">· {entry.place}</span>
             </p>
-            {entry.note && <p className="text-[13px] text-ink/65">{entry.note}</p>}
-            <p className="mt-1.5 text-[13px] text-ink/72">{entry.details.join(" · ")}</p>
-            {entry.stack && <p className="mt-1.5 font-mono text-[11px] text-ink/65">{entry.stack.join(" · ")}</p>}
+            {entry.note && <p className="text-[0.8125rem] text-ink/65">{entry.note}</p>}
+            <p className="mt-1.5 text-pretty text-[0.8125rem] text-ink/72">{entry.details.join(" · ")}</p>
+            {entry.stack && <p className="mt-1.5 font-mono text-[0.6875rem] text-ink/65">{entry.stack.join(" · ")}</p>}
           </div>
         </li>
       ))}
@@ -50,13 +50,13 @@ export default function Home() {
       <AsciiField />
       <div aria-hidden="true" className="ascii-texture pointer-events-none absolute inset-0 -z-10" />
       <ScrollThread />
-      <main className="mx-auto w-full max-w-[38rem] flex-1 px-8 sm:px-6 pt-24 pb-24 text-[15px] leading-relaxed">
+      <main className="mx-auto w-full max-w-[38rem] flex-1 px-8 sm:px-6 pt-24 pb-24 text-[0.9375rem] leading-relaxed">
         <header className="reveal-lift [--i:0] flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
           <div>
             <h1 className="font-serif text-4xl tracking-tight text-ink">{profile.name}</h1>
             <p className="mt-1 text-ink/72">{profile.role}</p>
           </div>
-          <dl className="border-l border-dotted border-ink/25 pl-3 font-mono text-[11px] leading-5 text-ink/65 uppercase sm:text-right">
+          <dl className="border-l border-dotted border-ink/25 pl-3 font-mono text-[0.6875rem] leading-5 tracking-wide text-ink/65 uppercase sm:text-right">
             <dt className="sr-only">Lieu</dt>
             <dd className="text-ink/70">{profile.location}</dd>
             <dt className="sr-only">Coordonnées</dt>
@@ -66,7 +66,7 @@ export default function Home() {
           </dl>
         </header>
 
-        <p className="reveal-lift [--i:1] mt-12 text-ink/78">{profile.intro}</p>
+        <p className="reveal-lift [--i:1] mt-12 text-pretty text-ink/78">{profile.intro}</p>
 
         <section data-thread="experience" className="reveal [--i:2] mt-16">
           <SectionTitle>Expérience</SectionTitle>
@@ -80,12 +80,12 @@ export default function Home() {
               <li key={project.href}>
                 <a href={project.href} className="group block py-4">
                   <span className="flex items-baseline justify-between gap-4">
-                    <span className="text-ink">{project.name}</span>
-                    <span className="font-mono text-[11px] text-ink/65 transition-colors group-hover:text-ink/90">
+                    <span className="font-medium text-ink">{project.name}</span>
+                    <span className="font-mono text-[0.6875rem] text-ink/65 transition-colors group-hover:text-ink/90">
                       {project.stack} ↗
                     </span>
                   </span>
-                  <span className="mt-1 block text-[13px] text-ink/72">{project.description}</span>
+                  <span className="mt-1 block text-pretty text-[0.8125rem] text-ink/72">{project.description}</span>
                 </a>
               </li>
             ))}
@@ -97,13 +97,13 @@ export default function Home() {
           <Timeline entries={education} />
         </section>
 
-        <dl className="reveal [--i:5] mt-16 space-y-4 text-[13px]">
+        <dl className="reveal [--i:5] mt-16 space-y-4 text-[0.8125rem]">
           {[
             { label: "Outils", value: tools.join(" · ") },
             { label: "Langues", value: languages.join(" · ") },
           ].map((row) => (
             <div key={row.label} className="grid gap-x-6 gap-y-1 sm:grid-cols-[7.5rem_1fr]">
-              <dt className="pt-0.5 font-mono text-[11px] tracking-wide text-ink/65 uppercase">{row.label}</dt>
+              <dt className="pt-0.5 font-mono text-[0.6875rem] tracking-wide text-ink/65 uppercase">{row.label}</dt>
               <dd className="text-ink/72">{row.value}</dd>
             </div>
           ))}
@@ -116,7 +116,7 @@ export default function Home() {
               <li key={link.href}>
                 <a href={link.href} className="group flex items-center justify-between py-3 text-ink">
                   {link.label}
-                  <span className="font-mono text-[12px] text-ink/65 transition-colors group-hover:text-ink/90">
+                  <span className="font-mono text-[0.6875rem] text-ink/65 transition-colors group-hover:text-ink/90">
                     {link.href.replace(/^https:\/\/(www\.)?/, "")} ↗
                   </span>
                 </a>
@@ -132,7 +132,7 @@ export default function Home() {
         </div>
         {/* Darken the bottom of the image just enough for the footer text to read on any part of it. */}
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-black/55 via-black/20 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 mx-auto flex max-w-[38rem] justify-between px-8 pb-[calc(1.25rem+env(safe-area-inset-bottom))] sm:px-6 text-[13px] text-white [text-shadow:0_1px_2px_rgb(0_0_0/0.45)]">
+        <div className="absolute inset-x-0 bottom-0 mx-auto flex max-w-[38rem] justify-between px-8 pb-[calc(1.25rem+env(safe-area-inset-bottom))] sm:px-6 text-[0.8125rem] text-white [text-shadow:0_1px_2px_rgb(0_0_0/0.45)]">
           <span>© 2026 {profile.name}</span>
           <span className="font-mono text-white/85">enzoneault.dev</span>
         </div>
