@@ -77,6 +77,70 @@ html {
   stroke: var(--color-thread);
 }
 
+/* Brand stickers: a small tilted tile with a white rim, like a sticker on the paper.
+   Sized in em so it follows the text it sits in. */
+.brand-tile {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 1.3em;
+  height: 1.3em;
+  border-radius: 0.32em;
+  box-shadow:
+    0 0 0 0.1em #fff,
+    0 0.12em 0.3em rgb(29 27 24 / 0.22);
+  rotate: -7deg;
+  transition:
+    rotate 200ms var(--ease-out-strong),
+    scale 200ms var(--ease-out-strong);
+}
+
+/* A word wrapped in a soft pill, its sticker overlapping the start. */
+.brand-chip {
+  padding: 0.2em 0.55em 0.2em 0.15em;
+  border-radius: 999px;
+  background: rgb(29 27 24 / 0.06);
+  color: var(--color-ink);
+  white-space: nowrap;
+}
+
+.brand-chip .brand-tile {
+  margin-right: 0.4em;
+  vertical-align: -0.3em;
+}
+
+/* In the intro, the stickers stamp in one after the other once the sentence has lifted in.
+   Backwards fill only, so the hover transition owns rotate and scale afterwards. */
+.brand-chip .brand-tile {
+  animation: stamp 240ms var(--ease-out-strong) backwards;
+  animation-delay: calc(200ms + var(--n, 0) * 50ms);
+}
+
+.brand-chip:nth-of-type(2) { --n: 1; }
+.brand-chip:nth-of-type(3) { --n: 2; }
+.brand-chip:nth-of-type(4) { --n: 3; }
+.brand-chip:nth-of-type(5) { --n: 4; }
+.brand-chip:nth-of-type(6) { --n: 5; }
+.brand-chip:nth-of-type(7) { --n: 6; }
+.brand-chip:nth-of-type(8) { --n: 7; }
+.brand-chip:nth-of-type(9) { --n: 8; }
+
+@keyframes stamp {
+  from {
+    opacity: 0;
+    scale: 1.25;
+    rotate: -16deg;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .brand-chip:hover .brand-tile,
+  a:hover > span > .brand-tile {
+    rotate: 0deg;
+    scale: 1.08;
+  }
+}
+
 /* Entrance: seen once per visit, so it may carry a little delight. Stagger with `[--i:n]`.
    Only transform and opacity, so it stays on the compositor. */
 .reveal {
@@ -135,6 +199,15 @@ html {
 
   .footer-settle {
     animation: none;
+  }
+
+  .brand-tile {
+    transition: none;
+  }
+
+  .brand-chip .brand-tile {
+    animation: reveal-fade 200ms ease-out backwards;
+    animation-delay: 200ms;
   }
 
   @keyframes reveal-fade {

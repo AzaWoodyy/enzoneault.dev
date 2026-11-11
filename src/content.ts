@@ -1,12 +1,35 @@
+import type { BrandIconName } from "~/app/brand-icon";
+
 export const profile = {
   name: "Enzo Neault",
   role: "Développeur",
   location: "Annecy, France",
   coordinates: "45.8992° N, 6.1294° E",
   timezone: "GMT+1",
-  intro:
-    "Développeur depuis 2022, je construis des applications de bout en bout, des microservices aux apps mobiles et desktop.",
 } as const;
+
+// The intro sentence, each technology wearing a small brand sticker.
+export const intro: readonly { text: string; icon?: BrandIconName }[] = [
+  { text: "Développeur depuis 2022, je construis des applications de bout en bout : le back avec " },
+  { text: "Laravel", icon: "laravel" },
+  { text: ", " },
+  { text: "Symfony", icon: "symfony" },
+  { text: ", " },
+  { text: "NestJS", icon: "nestjs" },
+  { text: " et " },
+  { text: "FastAPI", icon: "fastapi" },
+  { text: ", le front avec " },
+  { text: "React", icon: "react" },
+  { text: " et " },
+  { text: "Vue", icon: "vue" },
+  { text: ", le natif avec " },
+  { text: "React Native", icon: "react" },
+  { text: " et " },
+  { text: "Tauri", icon: "tauri" },
+  { text: ", le déploiement sur " },
+  { text: "Kubernetes", icon: "kubernetes" },
+  { text: "." },
+];
 
 export type TimelineEntry = {
   period: string;
@@ -125,10 +148,10 @@ export const projects: readonly Project[] = [
   },
 ];
 
-export const links = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/enzoneault" },
-  { label: "GitHub", href: "https://github.com/AzaWoodyy" },
-] as const;
+export const links: readonly { label: string; href: string; icon: BrandIconName }[] = [
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/enzoneault", icon: "linkedin" },
+  { label: "GitHub", href: "https://github.com/AzaWoodyy", icon: "github" },
+];
 
 export const footerAlt =
   "Une falaise herbeuse baignée de soleil au-dessus d’une mer turquoise, parsemée de caractères ASCII.";
