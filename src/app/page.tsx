@@ -48,6 +48,7 @@ export default function Home() {
     <div className="relative isolate flex min-h-screen flex-col">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c") }} />
       <AsciiField />
+      <div aria-hidden="true" className="ascii-texture pointer-events-none absolute inset-0 -z-10" />
       <ScrollThread />
       <main className="mx-auto w-full max-w-[38rem] flex-1 px-6 pt-24 pb-24 text-[15px] leading-relaxed">
         <header className="reveal-lift [--i:0] flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between sm:gap-6">

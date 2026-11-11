@@ -1,11 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { CELL, GLYPHS, GLYPH_LIFETIME, hash, REST_RGB, restGlyph, restLevel } from "./ascii-glyphs";
 
-// Letters and symbols, no digits, like the torch field on aiforui.dev/lab.
-const GLYPHS = "abcdefghijklmnopqrstuvwxyz=+-*/\\|<>:;.,_~^()[]{}!?&%$#@";
-const GLYPH_LIFETIME = 18;
-const CELL = 16;
 const FRAME_MS = 1000 / 30;
 const INK_DIFFUSION = 0.2;
 const INK_DECAY = 0.955;
@@ -13,29 +10,8 @@ const LAMP_RADIUS = 150;
 const FOOTER_FADE = 320;
 const CONTENT_EDGE = 48;
 
-// Ink of the page at rest, and a soft blue for whatever the pointer touches.
-const REST_RGB = [29, 27, 24] as const;
+// A soft blue for whatever the pointer touches.
 const LIT_RGB = [56, 110, 190] as const;
-
-function hash(x: number, y: number) {
-  const value = Math.sin(x * 127.1 + y * 311.7) * 43_758.545_3;
-
-  return value - Math.floor(value);
-}
-
-/** Smooth value noise in [0, 1]. */
-function noise(x: number, y: number) {
-  const x0 = Math.floor(x);
-  const y0 = Math.floor(y);
-  const fx = x - x0;
-  const fy = y - y0;
-  const u = fx * fx * (3 - 2 * fx);
-  const v = fy * fy * (3 - 2 * fy);
-  const top = hash(x0, y0) + (hash(x0 + 1, y0) - hash(x0, y0)) * u;
-  const bottom = hash(x0, y0 + 1) + (hash(x0 + 1, y0 + 1) - hash(x0, y0 + 1)) * u;
-
-  return top + (bottom - top) * v;
-}
 
 function mix(from: number, to: number, amount: number) {
   return Math.round(from + (to - from) * amount);
@@ -50,14 +26,15 @@ export function AsciiField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    // Animate only for a fine pointer with motion allowed. Touch screens and reduced motion show the static
+    // SVG texture instead (see ascii-texture.svg), painted with the page and without any JavaScript.
+    const animated =
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
     const canvas = canvasRef.current;
-    const context = canvas?.getContext("2d");
+    const context = animated ? canvas?.getContext("2d") : undefined;
 
     if (!canvas || !context) return;
-
-    // Animate only for a fine pointer with motion allowed; touch screens and reduced motion get a still field.
-    const still =
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches || !window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
     const fontFamily = getComputedStyle(document.documentElement).getPropertyValue("--font-geist-mono") || "monospace";
     let viewWidth = 0;
@@ -175,8 +152,7 @@ export function AsciiField() {
 
         for (let column = 0; column < columns; column += 1) {
           const worldX = column * CELL + CELL / 2;
-          const field = noise(column * 0.07 + t * 0.04, row * 0.07 - t * 0.03) * 0.7 + noise(column * 0.19 - t * 0.05, row * 0.19) * 0.3;
-          const rest = Math.max(0, (field - 0.28) * 1.4);
+          const rest = restLevel(column, row, t);
           const near = pointer ? Math.max(0, 1 - Math.hypot(worldX - pointer.x, worldY - pointer.y) / LAMP_RADIUS) : 0;
           const lit = Math.min(1, Math.max(ink[row * columns + column] ?? 0, near * near * lamp));
 
@@ -186,7 +162,7 @@ export function AsciiField() {
           const phase = hash(row, column) * GLYPH_LIFETIME;
           const scrambles = lit > 0.12 && hash(column + flicker, row) < lit * 0.6;
           const seed = scrambles ? flicker : Math.floor((t + phase) / GLYPH_LIFETIME);
-          const glyph = GLYPHS[Math.floor(hash(column * 3 + seed, row * 7 - seed) * GLYPHS.length)];
+          const glyph = scrambles ? GLYPHS[Math.floor(hash(column * 3 + seed, row * 7 - seed) * GLYPHS.length)] : restGlyph(column, row, seed);
 
           if (!glyph) continue;
 
@@ -216,52 +192,24 @@ export function AsciiField() {
     }
 
     function start() {
-      if (still) {
-        draw(0);
-
-        return;
-      }
-
       if (!frame) frame = requestAnimationFrame(loop);
-    }
-
-    function onResize() {
-      layout();
-
-      if (still) draw(0);
-    }
-
-    // A still field only needs repainting at the new scroll position, at most once per frame.
-    function onScrollStill() {
-      if (!frame) {
-        frame = requestAnimationFrame(() => {
-          frame = 0;
-          draw(0);
-        });
-      }
     }
 
     layout();
     start();
-    window.addEventListener("resize", onResize);
+    window.addEventListener("resize", layout);
     document.addEventListener("visibilitychange", start);
-
-    if (still) {
-      window.addEventListener("scroll", onScrollStill, { passive: true });
-    } else {
-      window.addEventListener("pointermove", onPointerMove, { passive: true });
-      document.documentElement.addEventListener("pointerleave", onPointerLeave);
-    }
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    document.documentElement.addEventListener("pointerleave", onPointerLeave);
 
     return () => {
       cancelAnimationFrame(frame);
-      window.removeEventListener("resize", onResize);
+      window.removeEventListener("resize", layout);
       document.removeEventListener("visibilitychange", start);
-      window.removeEventListener("scroll", onScrollStill);
       window.removeEventListener("pointermove", onPointerMove);
       document.documentElement.removeEventListener("pointerleave", onPointerLeave);
     };
   }, []);
 
-  return <canvas ref={canvasRef} aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 h-screen w-screen" />;
+  return <canvas ref={canvasRef} aria-hidden="true" className="ascii-canvas pointer-events-none fixed inset-0 -z-10 h-screen w-screen" />;
 }

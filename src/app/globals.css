@@ -13,6 +13,25 @@
   --color-thread: rgb(56 110 190);
 }
 
+/* Static ASCII texture for screens where the field does not animate (touch, reduced motion).
+   The exact complement of the canvas condition in ascii-field.tsx; hidden elements don't fetch their image. */
+.ascii-texture {
+  display: none;
+  background-image: url("/ascii-texture.svg");
+  background-size: 640px 640px;
+  mask-image: linear-gradient(to bottom, black calc(100% - 38vh - 320px), transparent calc(100% - 38vh));
+}
+
+@media (prefers-reduced-motion: reduce), not all and (hover: hover) and (pointer: fine) {
+  .ascii-texture {
+    display: block;
+  }
+
+  .ascii-canvas {
+    display: none;
+  }
+}
+
 /* Scroll thread: a faint track, the drawn part in the hover blue, and a dot per timeline entry.
    It fades in with the experience section instead of popping in before it. */
 .scroll-thread {
