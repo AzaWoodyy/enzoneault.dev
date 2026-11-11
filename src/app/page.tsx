@@ -50,7 +50,7 @@ export default function Home() {
       <AsciiField />
       <div aria-hidden="true" className="ascii-texture pointer-events-none absolute inset-0 -z-10" />
       <ScrollThread />
-      <main className="mx-auto w-full max-w-[38rem] flex-1 px-6 pt-24 pb-24 text-[15px] leading-relaxed">
+      <main className="mx-auto w-full max-w-[38rem] flex-1 px-8 sm:px-6 pt-24 pb-24 text-[15px] leading-relaxed">
         <header className="reveal-lift [--i:0] flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
           <div>
             <h1 className="font-serif text-4xl tracking-tight text-ink">{profile.name}</h1>
@@ -132,7 +132,7 @@ export default function Home() {
         </div>
         {/* Darken the bottom of the image just enough for the footer text to read on any part of it. */}
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-black/55 via-black/20 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 mx-auto flex max-w-[38rem] justify-between px-6 pb-5 text-[13px] text-white [text-shadow:0_1px_2px_rgb(0_0_0/0.45)]">
+        <div className="absolute inset-x-0 bottom-0 mx-auto flex max-w-[38rem] justify-between px-8 pb-[calc(1.25rem+env(safe-area-inset-bottom))] sm:px-6 text-[13px] text-white [text-shadow:0_1px_2px_rgb(0_0_0/0.45)]">
           <span>© 2026 {profile.name}</span>
           <span className="font-mono text-white/85">enzoneault.dev</span>
         </div>

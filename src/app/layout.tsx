@@ -2,7 +2,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import { GeistSerif } from "geist/font/serif/variable";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 const description = "Enzo Neault, développeur à Annecy : expérience, projets et formation.";
@@ -29,6 +29,9 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-icon.jpg", type: "image/jpeg", sizes: "180x180" }],
   },
 };
+
+// Draw under the iPhone safe areas so the footer image reaches the bottom edge instead of leaving a paper strip.
+export const viewport: Viewport = { viewportFit: "cover" };
 
 const fontVariables = [GeistSans.variable, GeistMono.variable, GeistSerif.variable].join(" ");
 
