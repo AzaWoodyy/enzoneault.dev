@@ -9,4 +9,56 @@
 @theme {
   --color-paper: #f3efe6;
   --color-ink: #1d1b18;
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Entrance: seen once per visit, so it may carry a little delight. Stagger with `[--i:n]`. */
+.reveal {
+  animation: reveal 600ms var(--ease-out-strong) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(4px);
+  }
+}
+
+/* Footer image settles as it scrolls into view, where supported. */
+@supports (animation-timeline: view()) {
+  .footer-settle {
+    animation: settle linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 45%;
+  }
+
+  @keyframes settle {
+    from {
+      opacity: 0.4;
+      transform: scale(1.06);
+    }
+  }
+}
+
+/* Fade the image into the paper background from the top. */
+.fade-top {
+  mask-image: linear-gradient(to bottom, transparent 0%, black 55%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: reveal-fade 300ms ease-out both;
+  }
+
+  .footer-settle {
+    animation: none;
+  }
+
+  @keyframes reveal-fade {
+    from {
+      opacity: 0;
+    }
+  }
 }

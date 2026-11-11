@@ -6,14 +6,14 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Enzo Neault",
-  description: "Enzo Neault's website",
+  description: "Le site d’Enzo Neault, développeur web.",
 };
 
 const fontVariables = [GeistSans.variable, GeistMono.variable, GeistSerif.variable].join(" ");
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${fontVariables} h-full antialiased`}>
+    <html lang="fr" className={`${fontVariables} h-full antialiased`}>
       <body className="min-h-full bg-paper font-sans text-ink">{children}</body>
     </html>
   );
