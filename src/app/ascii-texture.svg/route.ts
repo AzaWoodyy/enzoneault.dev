@@ -20,8 +20,9 @@ export function GET() {
 
       if (rest === 0 || !glyph) continue;
 
-      // Same opacity the canvas uses behind the text column on narrow screens.
-      const alpha = ((0.018 + rest * 0.032) * 0.45).toFixed(4);
+      // On a phone the whole field sits behind the copy, so it stays a little brighter than the canvas does
+      // behind the desktop text column (0.45), still below the open margins (1).
+      const alpha = ((0.018 + rest * 0.032) * 0.8).toFixed(4);
 
       glyphs.push(`<text x="${column * CELL + CELL / 2}" y="${row * CELL + CELL / 2}" fill-opacity="${alpha}">${escapeXml(glyph)}</text>`);
     }
