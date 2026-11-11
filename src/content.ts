@@ -1,11 +1,11 @@
 export const profile = {
   name: "Enzo Neault",
-  role: "Développeur web",
+  role: "Développeur",
   location: "Annecy, France",
   coordinates: "45.8992° N, 6.1294° E",
   timezone: "GMT+1",
   intro:
-    "Développeur web depuis 2022, je construis des applications de bout en bout, des microservices aux apps mobiles.",
+    "Développeur depuis 2022, je construis des applications de bout en bout, des microservices aux apps mobiles et desktop.",
 } as const;
 
 export type TimelineEntry = {
@@ -20,7 +20,7 @@ export type TimelineEntry = {
 export const experience: readonly TimelineEntry[] = [
   {
     period: "2023 — auj.",
-    title: "Développeur web",
+    title: "Développeur",
     place: "Web Expert Business (Miliboo)",
     note: "CDI",
     details: [
@@ -34,7 +34,7 @@ export const experience: readonly TimelineEntry[] = [
   },
   {
     period: "2022 — 2023",
-    title: "Développeur web",
+    title: "Développeur",
     place: "Web Expert Business",
     note: "Alternance, 10 mois",
     details: ["Application de gestion de stock", "Mobile en React Native", "Web en Laravel"],
