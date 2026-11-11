@@ -5,7 +5,7 @@ import footer from "~/assets/footer-landscape.jpg";
 import { education, experience, footerAlt, languages, links, profile, projects, type TimelineEntry, tools } from "~/content";
 
 function SectionTitle({ children }: { children: string }) {
-  return <h2 className="font-mono text-[11px] tracking-wide text-ink/40 uppercase">{children}</h2>;
+  return <h2 className="font-mono text-[11px] tracking-wide text-ink/65 uppercase">{children}</h2>;
 }
 
 function Timeline({ entries }: { entries: readonly TimelineEntry[] }) {
@@ -13,13 +13,14 @@ function Timeline({ entries }: { entries: readonly TimelineEntry[] }) {
     <ol className="mt-5 space-y-6">
       {entries.map((entry) => (
         <li key={`${entry.period}-${entry.place}`} data-thread-dot className="grid gap-x-6 gap-y-1 sm:grid-cols-[7.5rem_1fr]">
-          <span className="pt-0.5 font-mono text-[12px] text-ink/40 tabular-nums">{entry.period}</span>
+          <span className="pt-0.5 font-mono text-[12px] text-ink/65 tabular-nums">{entry.period}</span>
           <div>
             <p className="text-ink">
-              {entry.title} <span className="text-ink/45">· {entry.place}</span>
+              {entry.title} <span className="text-ink/65">· {entry.place}</span>
             </p>
-            {entry.note && <p className="text-[13px] text-ink/45">{entry.note}</p>}
-            <p className="mt-1.5 text-[13px] text-ink/55">{entry.details.join(" · ")}</p>
+            {entry.note && <p className="text-[13px] text-ink/65">{entry.note}</p>}
+            <p className="mt-1.5 text-[13px] text-ink/72">{entry.details.join(" · ")}</p>
+            {entry.stack && <p className="mt-1.5 font-mono text-[11px] text-ink/65">{entry.stack.join(" · ")}</p>}
           </div>
         </li>
       ))}
@@ -36,9 +37,9 @@ export default function Home() {
         <header className="reveal [--i:0] flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
           <div>
             <h1 className="font-serif text-4xl tracking-tight text-ink">{profile.name}</h1>
-            <p className="mt-1 text-ink/55">{profile.role}</p>
+            <p className="mt-1 text-ink/72">{profile.role}</p>
           </div>
-          <dl className="border-l border-dotted border-ink/25 pl-3 font-mono text-[11px] leading-5 text-ink/40 uppercase sm:text-right">
+          <dl className="border-l border-dotted border-ink/25 pl-3 font-mono text-[11px] leading-5 text-ink/65 uppercase sm:text-right">
             <dt className="sr-only">Lieu</dt>
             <dd className="text-ink/70">{profile.location}</dd>
             <dt className="sr-only">Coordonnées</dt>
@@ -48,7 +49,7 @@ export default function Home() {
           </dl>
         </header>
 
-        <p className="reveal [--i:1] mt-12 text-ink/65">{profile.intro}</p>
+        <p className="reveal [--i:1] mt-12 text-ink/78">{profile.intro}</p>
 
         <section data-thread="experience" className="reveal [--i:2] mt-16">
           <SectionTitle>Expérience</SectionTitle>
@@ -63,11 +64,11 @@ export default function Home() {
                 <a href={project.href} className="group block py-4">
                   <span className="flex items-baseline justify-between gap-4">
                     <span className="text-ink">{project.name}</span>
-                    <span className="font-mono text-[11px] text-ink/35 transition-colors group-hover:text-ink/70">
+                    <span className="font-mono text-[11px] text-ink/65 transition-colors group-hover:text-ink/90">
                       {project.stack} ↗
                     </span>
                   </span>
-                  <span className="mt-1 block text-[13px] text-ink/55">{project.description}</span>
+                  <span className="mt-1 block text-[13px] text-ink/72">{project.description}</span>
                 </a>
               </li>
             ))}
@@ -85,8 +86,8 @@ export default function Home() {
             { label: "Langues", value: languages.join(" · ") },
           ].map((row) => (
             <div key={row.label} className="grid gap-x-6 gap-y-1 sm:grid-cols-[7.5rem_1fr]">
-              <dt className="pt-0.5 font-mono text-[11px] tracking-wide text-ink/40 uppercase">{row.label}</dt>
-              <dd className="text-ink/55">{row.value}</dd>
+              <dt className="pt-0.5 font-mono text-[11px] tracking-wide text-ink/65 uppercase">{row.label}</dt>
+              <dd className="text-ink/72">{row.value}</dd>
             </div>
           ))}
         </dl>
@@ -98,7 +99,7 @@ export default function Home() {
               <li key={link.href}>
                 <a href={link.href} className="group flex items-center justify-between py-3 text-ink">
                   {link.label}
-                  <span className="font-mono text-[12px] text-ink/35 transition-colors group-hover:text-ink/70">
+                  <span className="font-mono text-[12px] text-ink/65 transition-colors group-hover:text-ink/90">
                     {link.href.replace(/^https:\/\/(www\.)?/, "")} ↗
                   </span>
                 </a>

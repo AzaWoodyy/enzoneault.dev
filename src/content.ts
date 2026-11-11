@@ -14,6 +14,7 @@ export type TimelineEntry = {
   place: string;
   note?: string;
   details: readonly string[];
+  stack?: readonly string[];
 };
 
 export const experience: readonly TimelineEntry[] = [
@@ -22,21 +23,28 @@ export const experience: readonly TimelineEntry[] = [
     title: "Développeur web",
     place: "Web Expert Business (Miliboo)",
     note: "CDI",
-    details: ["Microservice SAV avec Kafka", "Prévision de la demande (DRP) en Python", "Support, maquettes, méthodes agiles"],
+    details: [
+      "Microservice SAV avec Kafka",
+      "Prévision de la demande (DRP) en Python",
+      "Application native en Rust",
+      "Agents IA avec LangGraph",
+      "Déploiement Kubernetes avec FluxCD",
+    ],
+    stack: ["Laravel", "Symfony", "FastAPI", "NestJS", "React", "Vue"],
   },
   {
     period: "2022 — 2023",
     title: "Développeur web",
     place: "Web Expert Business",
     note: "Alternance, 10 mois",
-    details: ["Application de gestion de stock", "Mobile en React Native", "Web en Laravel et Livewire"],
+    details: ["Application de gestion de stock", "Mobile en React Native", "Web en Laravel"],
   },
   {
     period: "2022",
     title: "Développeur mobile",
     place: "Alyseo",
     note: "Stage puis CDD, 5 mois",
-    details: ["Intégration de maquettes", "Développement React Native", "Méthodes agiles"],
+    details: ["Intégration de maquettes", "Développement React Native"],
   },
 ];
 
@@ -51,7 +59,7 @@ export const education: readonly TimelineEntry[] = [
     period: "2020 — 2022",
     title: "DUT Informatique",
     place: "Université de La Rochelle",
-    details: ["Logiciel en C++", "Web avec Symfony", "Scrum et méthodes agiles"],
+    details: ["Logiciel en C++", "Web avec Symfony"],
   },
   {
     period: "2019 — 2020",
@@ -61,7 +69,24 @@ export const education: readonly TimelineEntry[] = [
   },
 ];
 
-export const tools = ["Symfony", "Laravel", "React", "React Native", "Vue", "Next.js", "Kafka", "Docker", "FastAPI", "MySQL", "PostgreSQL"] as const;
+export const tools = [
+  "Laravel",
+  "Symfony",
+  "FastAPI",
+  "NestJS",
+  "React",
+  "Vue",
+  "Next.js",
+  "React Native",
+  "Rust",
+  "LangGraph",
+  "Kafka",
+  "Docker",
+  "Kubernetes",
+  "FluxCD",
+  "MySQL",
+  "PostgreSQL",
+] as const;
 
 export const languages = ["Français, natif", "Anglais, TOEIC 900"] as const;
 
@@ -84,12 +109,6 @@ export const projects: readonly Project[] = [
     description: "Archive automatiquement mes favoris X dans Karakeep, sans jamais rien supprimer.",
     stack: "JavaScript · API X",
     href: "https://github.com/AzaWoodyy/x-karakeep-sync",
-  },
-  {
-    name: "Dofus Window Cycler",
-    description: "Passe d’une fenêtre Dofus à l’autre dans l’ordre choisi, avec un seul raccourci.",
-    stack: "AutoHotkey",
-    href: "https://github.com/AzaWoodyy/dofus-window-cycler",
   },
   {
     name: "enzoneault.dev",

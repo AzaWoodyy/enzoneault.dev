@@ -11,6 +11,7 @@ const INK_DIFFUSION = 0.2;
 const INK_DECAY = 0.955;
 const LAMP_RADIUS = 150;
 const FOOTER_FADE = 320;
+const CONTENT_EDGE = 48;
 
 // Ink of the page at rest, and a soft blue for whatever the pointer touches.
 const REST_RGB = [29, 27, 24] as const;
@@ -66,6 +67,8 @@ export function AsciiField() {
     let ink = new Float32Array(0);
     let next = new Float32Array(0);
     let footerTop = Number.POSITIVE_INFINITY;
+    let contentLeft = 0;
+    let contentRight = 0;
     let pointer: { x: number; y: number } | undefined;
     let lamp = 0;
     let frame = 0;
@@ -88,6 +91,11 @@ export function AsciiField() {
       const footer = document.querySelector("footer");
 
       footerTop = footer ? footer.getBoundingClientRect().top + window.scrollY : Number.POSITIVE_INFINITY;
+
+      const content = document.querySelector("main")?.getBoundingClientRect();
+
+      contentLeft = content?.left ?? 0;
+      contentRight = content?.right ?? 0;
 
       const nextColumns = Math.ceil(viewWidth / CELL) + 1;
       const nextRows = Math.ceil(document.documentElement.scrollHeight / CELL) + 1;
@@ -182,7 +190,10 @@ export function AsciiField() {
 
           if (!glyph) continue;
 
-          const alpha = (0.018 + rest * 0.032 + lit * 0.36) * fade;
+          // Behind the text column the field steps back, so it never fights the copy for contrast.
+          const outside = Math.max(contentLeft - worldX, worldX - contentRight, 0);
+          const shield = Math.max(0, 1 - outside / CONTENT_EDGE);
+          const alpha = ((0.018 + rest * 0.032) * (1 - shield * 0.55) + lit * 0.36 * (1 - shield * 0.8)) * fade;
 
           context.fillStyle = `rgba(${mix(REST_RGB[0], LIT_RGB[0], lit)}, ${mix(REST_RGB[1], LIT_RGB[1], lit)}, ${mix(REST_RGB[2], LIT_RGB[2], lit)}, ${alpha})`;
           context.fillText(glyph, worldX, worldY - scroll);
