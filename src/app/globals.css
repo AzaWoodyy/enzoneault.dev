@@ -90,7 +90,9 @@ html {
     0 0 0 0.1em #fff,
     0 0.12em 0.3em rgb(29 27 24 / 0.22);
   rotate: -7deg;
-  transition: rotate 300ms var(--ease-out-strong), scale 300ms var(--ease-out-strong);
+  transition:
+    rotate 200ms var(--ease-out-strong),
+    scale 200ms var(--ease-out-strong);
 }
 
 /* A word wrapped in a soft pill, its sticker overlapping the start. */
@@ -105,6 +107,28 @@ html {
 .brand-chip .brand-tile {
   margin-right: 0.4em;
   vertical-align: -0.3em;
+}
+
+/* In the intro, the stickers stamp in one after the other once the sentence has lifted in.
+   Backwards fill only, so the hover transition owns rotate and scale afterwards. */
+.brand-chip .brand-tile {
+  animation: stamp 240ms var(--ease-out-strong) backwards;
+  animation-delay: calc(200ms + var(--n, 0) * 50ms);
+}
+
+.brand-chip:nth-of-type(2) { --n: 1; }
+.brand-chip:nth-of-type(3) { --n: 2; }
+.brand-chip:nth-of-type(4) { --n: 3; }
+.brand-chip:nth-of-type(5) { --n: 4; }
+.brand-chip:nth-of-type(6) { --n: 5; }
+.brand-chip:nth-of-type(7) { --n: 6; }
+
+@keyframes stamp {
+  from {
+    opacity: 0;
+    scale: 1.25;
+    rotate: -16deg;
+  }
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -177,6 +201,11 @@ html {
 
   .brand-tile {
     transition: none;
+  }
+
+  .brand-chip .brand-tile {
+    animation: reveal-fade 200ms ease-out backwards;
+    animation-delay: 200ms;
   }
 
   @keyframes reveal-fade {

@@ -8,14 +8,22 @@ export const profile = {
   timezone: "GMT+1",
 } as const;
 
-// The intro sentence, with a few words wearing a small brand sticker.
+// The intro sentence, each technology wearing a small brand sticker.
 export const intro: readonly { text: string; icon?: BrandIconName }[] = [
-  { text: "Développeur depuis 2022, je construis des applications de bout en bout, des " },
-  { text: "microservices", icon: "kubernetes" },
-  { text: " aux " },
-  { text: "apps mobiles", icon: "react" },
+  { text: "Développeur depuis 2022, je construis des applications de bout en bout : le back avec " },
+  { text: "Laravel", icon: "laravel" },
   { text: " et " },
-  { text: "desktop", icon: "tauri" },
+  { text: "FastAPI", icon: "fastapi" },
+  { text: ", le front avec " },
+  { text: "React", icon: "react" },
+  { text: " et " },
+  { text: "Vue", icon: "vue" },
+  { text: ", le natif avec " },
+  { text: "React Native", icon: "react" },
+  { text: " et " },
+  { text: "Tauri", icon: "tauri" },
+  { text: ", le déploiement sur " },
+  { text: "Kubernetes", icon: "kubernetes" },
   { text: "." },
 ];
 
