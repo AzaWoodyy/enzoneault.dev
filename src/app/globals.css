@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-geist-serif);
+}
+
+@theme {
+  --color-paper: #f3efe6;
+  --color-ink: #1d1b18;
+}

@@ -1,33 +1,23 @@
-# This repository contains the code of the enzoneault.dev website
+# enzoneault.dev
 
-## Installation
+Source of the enzoneault.dev website — Next.js (App Router), Tailwind CSS, Bun, Node 26.
 
-Clone the project
+## Setup
 
 ```bash
-git clone
+bun install
 ```
 
-Go in the project's directory
+## Develop
 
 ```bash
-cd enzoneault.dev
+bun dev
 ```
 
-Install the dependencies
+## Check
 
 ```bash
-pnpm install
-```
-
-## Launch the project
-
-```bash
-pnpm dev
-```
-
-## Lint the project
-
-```bash
-pnpm lint
+bun run lint       # oxlint + vendored anti-slop rules (tools/oxlint/anti-slop)
+bun run typecheck
+bun run build
 ```
