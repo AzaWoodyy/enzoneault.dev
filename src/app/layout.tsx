@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import { GeistSerif } from "geist/font/serif/variable";
@@ -34,7 +35,10 @@ const fontVariables = [GeistSans.variable, GeistMono.variable, GeistSerif.variab
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="fr" className={`${fontVariables} h-full antialiased`}>
-      <body className="min-h-full bg-paper font-sans text-ink">{children}</body>
+      <body className="min-h-full bg-paper font-sans text-ink">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
