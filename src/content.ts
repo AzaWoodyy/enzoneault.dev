@@ -114,14 +114,13 @@ export const projects: readonly Project[] = [
     name: "enzoneault.dev",
     description: "Ce site, reconstruit de zéro avec la famille de polices Geist.",
     stack: "Next.js 16 · Bun",
-    href: "https://git.cafe/azawoodyy/enzoneault.dev",
+    href: "https://github.com/AzaWoodyy/enzoneault.dev",
   },
 ];
 
 export const links = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/enzoneault" },
   { label: "GitHub", href: "https://github.com/AzaWoodyy" },
-  { label: "GitCafe", href: "https://git.cafe/azawoodyy" },
 ] as const;
 
 export const footerAlt =
