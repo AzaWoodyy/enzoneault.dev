@@ -10,7 +10,7 @@ export const profile = {
 
 // The intro sentence, each technology wearing a small brand sticker.
 export const intro: readonly { text: string; icon?: BrandIconName }[] = [
-  { text: "Développeur depuis 2022, je construis des applications de bout en bout : le back avec " },
+  { text: "Développeur depuis 2016, je construis des applications de bout en bout : le back avec " },
   { text: "Laravel", icon: "laravel" },
   { text: ", " },
   { text: "Symfony", icon: "symfony" },
@@ -68,6 +68,14 @@ export const experience: readonly TimelineEntry[] = [
     place: "Alyseo",
     note: "Stage puis CDD, 5 mois",
     details: ["Intégration de maquettes", "Développement React Native"],
+  },
+  {
+    period: "2016",
+    title: "Développeur full stack",
+    place: "Garage Bora-Bora, Polynésie française",
+    note: "Stage, 1 mois",
+    details: ["Outil de gestion des clients et des véhicules du garage", "Conception de la base de données"],
+    stack: ["PHP", "MySQL", "Bootstrap"],
   },
 ];
 
