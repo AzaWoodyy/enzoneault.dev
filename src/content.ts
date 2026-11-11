@@ -100,6 +100,12 @@ export type Project = {
 
 export const projects: readonly Project[] = [
   {
+    name: "homelab-ai",
+    description: "Serveur IA auto-hébergé sur un PC : LLM locaux, voix hors ligne et dashboard sécurisé via Tailscale.",
+    stack: "PowerShell · React · Ollama",
+    href: "https://github.com/AzaWoodyy/homelab-ai",
+  },
+  {
     name: "WorkBridge",
     description: "Une app de bureau locale qui réunit la planification de GitLab, ClickUp et Rocket.Chat.",
     stack: "Electron · TypeScript",
