@@ -122,6 +122,8 @@ html {
 .brand-chip:nth-of-type(5) { --n: 4; }
 .brand-chip:nth-of-type(6) { --n: 5; }
 .brand-chip:nth-of-type(7) { --n: 6; }
+.brand-chip:nth-of-type(8) { --n: 7; }
+.brand-chip:nth-of-type(9) { --n: 8; }
 
 @keyframes stamp {
   from {

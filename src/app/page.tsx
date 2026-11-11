@@ -67,7 +67,7 @@ export default function Home() {
           </dl>
         </header>
 
-        <p className="reveal-lift [--i:1] mt-12 text-pretty text-ink/78">
+        <p className="reveal-lift [--i:1] mt-12 text-pretty leading-[1.95] text-ink/78">
           {intro.map((part) =>
             part.icon ? (
               <span key={part.text} className="brand-chip">

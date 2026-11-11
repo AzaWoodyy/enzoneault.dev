@@ -12,6 +12,10 @@ export const profile = {
 export const intro: readonly { text: string; icon?: BrandIconName }[] = [
   { text: "Développeur depuis 2022, je construis des applications de bout en bout : le back avec " },
   { text: "Laravel", icon: "laravel" },
+  { text: ", " },
+  { text: "Symfony", icon: "symfony" },
+  { text: ", " },
+  { text: "NestJS", icon: "nestjs" },
   { text: " et " },
   { text: "FastAPI", icon: "fastapi" },
   { text: ", le front avec " },
