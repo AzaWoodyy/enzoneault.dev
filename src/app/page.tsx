@@ -28,13 +28,29 @@ function Timeline({ entries }: { entries: readonly TimelineEntry[] }) {
   );
 }
 
+// Structured data for search engines: who Enzo is, where he works, and where to find him.
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  jobTitle: profile.role,
+  url: "https://www.enzoneault.dev",
+  image: "https://www.enzoneault.dev/icon.webp",
+  address: { "@type": "PostalAddress", addressLocality: "Annecy", addressCountry: "FR" },
+  worksFor: { "@type": "Organization", name: "Web Expert Business" },
+  alumniOf: education.map((entry) => ({ "@type": "EducationalOrganization", name: entry.place })),
+  knowsAbout: tools,
+  sameAs: links.map((link) => link.href),
+};
+
 export default function Home() {
   return (
     <div className="relative isolate flex min-h-screen flex-col">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c") }} />
       <AsciiField />
       <ScrollThread />
       <main className="mx-auto w-full max-w-[38rem] flex-1 px-6 pt-24 pb-24 text-[15px] leading-relaxed">
-        <header className="reveal [--i:0] flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+        <header className="reveal-lift [--i:0] flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
           <div>
             <h1 className="font-serif text-4xl tracking-tight text-ink">{profile.name}</h1>
             <p className="mt-1 text-ink/72">{profile.role}</p>
@@ -49,7 +65,7 @@ export default function Home() {
           </dl>
         </header>
 
-        <p className="reveal [--i:1] mt-12 text-ink/78">{profile.intro}</p>
+        <p className="reveal-lift [--i:1] mt-12 text-ink/78">{profile.intro}</p>
 
         <section data-thread="experience" className="reveal [--i:2] mt-16">
           <SectionTitle>Expérience</SectionTitle>

@@ -52,7 +52,8 @@
   stroke: var(--color-thread);
 }
 
-/* Entrance: seen once per visit, so it may carry a little delight. Stagger with `[--i:n]`. */
+/* Entrance: seen once per visit, so it may carry a little delight. Stagger with `[--i:n]`.
+   Only transform and opacity, so it stays on the compositor. */
 .reveal {
   animation: reveal 600ms var(--ease-out-strong) both;
   animation-delay: calc(var(--i, 0) * 70ms);
@@ -62,7 +63,18 @@
   from {
     opacity: 0;
     transform: translateY(8px);
-    filter: blur(4px);
+  }
+}
+
+/* Above the fold: a lift without fading from zero, so the hero text counts for Largest Contentful Paint. */
+.reveal-lift {
+  animation: lift 600ms var(--ease-out-strong) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+@keyframes lift {
+  from {
+    transform: translateY(8px);
   }
 }
 
@@ -90,6 +102,10 @@
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     animation: reveal-fade 300ms ease-out both;
+  }
+
+  .reveal-lift {
+    animation: none;
   }
 
   .footer-settle {

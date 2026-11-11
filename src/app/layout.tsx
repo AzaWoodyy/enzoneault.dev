@@ -4,9 +4,24 @@ import { GeistSerif } from "geist/font/serif/variable";
 import type { Metadata } from "next";
 import "./globals.css";
 
+const description = "Enzo Neault, développeur web à Annecy : expérience, projets et formation.";
+
 export const metadata: Metadata = {
-  title: "Enzo Neault",
-  description: "Le site d’Enzo Neault, développeur web.",
+  metadataBase: new URL("https://www.enzoneault.dev"),
+  title: "Enzo Neault — Développeur web",
+  description,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "profile",
+    locale: "fr_FR",
+    url: "/",
+    siteName: "Enzo Neault",
+    title: "Enzo Neault — Développeur web",
+    description,
+    firstName: "Enzo",
+    lastName: "Neault",
+  },
+  twitter: { card: "summary", title: "Enzo Neault — Développeur web", description },
   // Light WebP favicon for modern browsers, app/favicon.ico as fallback, and a small JPEG for iOS home screens.
   icons: {
     icon: [{ url: "/icon.webp", type: "image/webp", sizes: "256x256" }],
