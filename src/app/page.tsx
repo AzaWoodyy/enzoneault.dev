@@ -113,9 +113,11 @@ export default function Home() {
         <div className="footer-settle fade-top absolute inset-0">
           <Image src={footer} alt={footerAlt} fill sizes="100vw" placeholder="blur" className="object-cover" />
         </div>
-        <div className="absolute inset-x-0 bottom-0 mx-auto flex max-w-[38rem] justify-between px-6 pb-5 text-[13px] text-white/85">
+        {/* Darken the bottom of the image just enough for the footer text to read on any part of it. */}
+        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-black/55 via-black/20 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 mx-auto flex max-w-[38rem] justify-between px-6 pb-5 text-[13px] text-white [text-shadow:0_1px_2px_rgb(0_0_0/0.45)]">
           <span>© 2026 {profile.name}</span>
-          <span className="font-mono text-white/60">enzoneault.dev</span>
+          <span className="font-mono text-white/85">enzoneault.dev</span>
         </div>
       </footer>
     </div>

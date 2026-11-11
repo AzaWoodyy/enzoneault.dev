@@ -13,7 +13,18 @@
   --color-thread: rgb(56 110 190);
 }
 
-/* Scroll thread: a faint track, the drawn part in the hover blue, and a dot per timeline entry. */
+/* Scroll thread: a faint track, the drawn part in the hover blue, and a dot per timeline entry.
+   It fades in with the experience section instead of popping in before it. */
+.scroll-thread {
+  animation: thread-in 600ms var(--ease-out-strong) 140ms both;
+}
+
+@keyframes thread-in {
+  from {
+    opacity: 0;
+  }
+}
+
 .scroll-thread-track {
   stroke: rgb(29 27 24 / 0.1);
   stroke-width: 1;

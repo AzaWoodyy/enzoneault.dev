@@ -8,10 +8,24 @@ const READ_LINE = 0.55;
 
 type Anchor = { top: number; bottom: number; left: number };
 
-function within(element: Element, origin: DOMRect): Anchor {
-  const rect = element.getBoundingClientRect();
+/**
+ * Layout position relative to the wrapper. Offsets ignore CSS transforms, so the entrance animations
+ * (which translate sections while they play) never shift the thread or its dots.
+ */
+function within(element: Element, wrapper: HTMLElement): Anchor | undefined {
+  if (!(element instanceof HTMLElement)) return undefined;
 
-  return { top: rect.top - origin.top, bottom: rect.bottom - origin.top, left: rect.left - origin.left };
+  let top = 0;
+  let left = 0;
+  let node: HTMLElement | undefined = element;
+
+  while (node && node !== wrapper) {
+    top += node.offsetTop;
+    left += node.offsetLeft;
+    node = node.offsetParent instanceof HTMLElement ? node.offsetParent : undefined;
+  }
+
+  return { top, bottom: top + element.offsetHeight, left };
 }
 
 /**
@@ -51,25 +65,26 @@ export function ScrollThread() {
     function build() {
       if (!svg || !track || !progress || !dots || !wrapper) return;
 
-      const origin = wrapper.getBoundingClientRect();
+      const width = wrapper.offsetWidth;
+      const height = wrapper.offsetHeight;
       const experience = wrapper.querySelector("[data-thread='experience']");
       const education = wrapper.querySelector("[data-thread='education']");
+      const exp = experience ? within(experience, wrapper) : undefined;
+      const edu = education ? within(education, wrapper) : undefined;
 
-      if (!experience || !education) return;
+      if (!exp || !edu) return;
 
-      const exp = within(experience, origin);
-      const edu = within(education, origin);
       const leftX = Math.max(8, exp.left - GUTTER);
       const d = `M ${leftX} ${exp.top} L ${leftX} ${edu.bottom}`;
 
-      svg.setAttribute("viewBox", `0 0 ${origin.width} ${origin.height}`);
+      svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
       track.setAttribute("d", d);
       progress.setAttribute("d", d);
       totalLength = progress.getTotalLength();
       progress.style.strokeDasharray = `${totalLength}`;
 
       // The path only ever goes down, so map each pixel row to the path length that reaches it.
-      lengthAtY = Array.from({ length: Math.ceil(origin.height) + 1 }, () => 0);
+      lengthAtY = Array.from({ length: Math.ceil(height) + 1 }, () => 0);
 
       let previousY = 0;
       let previousLength = 0;
@@ -93,7 +108,10 @@ export function ScrollThread() {
       dotLengths = [];
 
       for (const entry of wrapper.querySelectorAll("[data-thread-dot]")) {
-        const anchor = within(entry, origin);
+        const anchor = within(entry, wrapper);
+
+        if (!anchor) continue;
+
         const y = anchor.top + 10;
         const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
 
@@ -132,15 +150,14 @@ export function ScrollThread() {
     build();
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
-    // Entrance animations shift sections by a few pixels while they play; measure again once they settle.
-    wrapper.addEventListener("animationend", build);
+    // Web fonts can reflow the timeline after first paint.
+    void document.fonts.ready.then(build);
 
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
-      wrapper.removeEventListener("animationend", build);
     };
   }, []);
 

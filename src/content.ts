@@ -84,8 +84,9 @@ export const tools = [
   "Docker",
   "Kubernetes",
   "FluxCD",
-  "MySQL",
+  "MariaDB",
   "PostgreSQL",
+  "Tauri",
 ] as const;
 
 export const languages = ["Français, natif", "Anglais, TOEIC 900"] as const;
