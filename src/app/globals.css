@@ -77,6 +77,44 @@ html {
   stroke: var(--color-thread);
 }
 
+/* Brand stickers: a small tilted tile with a white rim, like a sticker on the paper.
+   Sized in em so it follows the text it sits in. */
+.brand-tile {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 1.3em;
+  height: 1.3em;
+  border-radius: 0.32em;
+  box-shadow:
+    0 0 0 0.1em #fff,
+    0 0.12em 0.3em rgb(29 27 24 / 0.22);
+  rotate: -7deg;
+  transition: rotate 300ms var(--ease-out-strong), scale 300ms var(--ease-out-strong);
+}
+
+/* A word wrapped in a soft pill, its sticker overlapping the start. */
+.brand-chip {
+  padding: 0.2em 0.55em 0.2em 0.15em;
+  border-radius: 999px;
+  background: rgb(29 27 24 / 0.06);
+  color: var(--color-ink);
+  white-space: nowrap;
+}
+
+.brand-chip .brand-tile {
+  margin-right: 0.4em;
+  vertical-align: -0.3em;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .brand-chip:hover .brand-tile,
+  a:hover > span > .brand-tile {
+    rotate: 0deg;
+    scale: 1.08;
+  }
+}
+
 /* Entrance: seen once per visit, so it may carry a little delight. Stagger with `[--i:n]`.
    Only transform and opacity, so it stays on the compositor. */
 .reveal {
@@ -135,6 +173,10 @@ html {
 
   .footer-settle {
     animation: none;
+  }
+
+  .brand-tile {
+    transition: none;
   }
 
   @keyframes reveal-fade {

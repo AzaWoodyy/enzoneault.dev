@@ -1,12 +1,23 @@
+import type { BrandIconName } from "~/app/brand-icon";
+
 export const profile = {
   name: "Enzo Neault",
   role: "Développeur",
   location: "Annecy, France",
   coordinates: "45.8992° N, 6.1294° E",
   timezone: "GMT+1",
-  intro:
-    "Développeur depuis 2022, je construis des applications de bout en bout, des microservices aux apps mobiles et desktop.",
 } as const;
+
+// The intro sentence, with a few words wearing a small brand sticker.
+export const intro: readonly { text: string; icon?: BrandIconName }[] = [
+  { text: "Développeur depuis 2022, je construis des applications de bout en bout, des " },
+  { text: "microservices", icon: "kubernetes" },
+  { text: " aux " },
+  { text: "apps mobiles", icon: "react" },
+  { text: " et " },
+  { text: "desktop", icon: "tauri" },
+  { text: "." },
+];
 
 export type TimelineEntry = {
   period: string;
@@ -125,10 +136,10 @@ export const projects: readonly Project[] = [
   },
 ];
 
-export const links = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/enzoneault" },
-  { label: "GitHub", href: "https://github.com/AzaWoodyy" },
-] as const;
+export const links: readonly { label: string; href: string; icon: BrandIconName }[] = [
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/enzoneault", icon: "linkedin" },
+  { label: "GitHub", href: "https://github.com/AzaWoodyy", icon: "github" },
+];
 
 export const footerAlt =
   "Une falaise herbeuse baignée de soleil au-dessus d’une mer turquoise, parsemée de caractères ASCII.";

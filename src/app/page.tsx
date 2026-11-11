@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { AsciiField } from "./ascii-field";
+import { BrandIcon } from "./brand-icon";
 import { ScrollThread } from "./scroll-thread";
 import footer from "~/assets/footer-landscape.jpg";
-import { education, experience, footerAlt, languages, links, profile, projects, type TimelineEntry, tools } from "~/content";
+import { education, experience, footerAlt, intro, languages, links, profile, projects, type TimelineEntry, tools } from "~/content";
 
 function SectionTitle({ children }: { children: string }) {
   return <h2 className="font-mono text-[0.6875rem] tracking-wide text-ink/65 uppercase">{children}</h2>;
@@ -66,7 +67,18 @@ export default function Home() {
           </dl>
         </header>
 
-        <p className="reveal-lift [--i:1] mt-12 text-pretty text-ink/78">{profile.intro}</p>
+        <p className="reveal-lift [--i:1] mt-12 text-pretty text-ink/78">
+          {intro.map((part) =>
+            part.icon ? (
+              <span key={part.text} className="brand-chip">
+                <BrandIcon name={part.icon} />
+                {part.text}
+              </span>
+            ) : (
+              part.text
+            ),
+          )}
+        </p>
 
         <section data-thread="experience" className="reveal [--i:2] mt-16">
           <SectionTitle>Expérience</SectionTitle>
@@ -115,7 +127,10 @@ export default function Home() {
             {links.map((link) => (
               <li key={link.href}>
                 <a href={link.href} className="group flex items-center justify-between py-3 text-ink">
-                  {link.label}
+                  <span className="flex items-center gap-2.5">
+                    <BrandIcon name={link.icon} className="text-[0.875rem]" />
+                    {link.label}
+                  </span>
                   <span className="font-mono text-[0.6875rem] text-ink/65 transition-colors group-hover:text-ink/90">
                     {link.href.replace(/^https:\/\/(www\.)?/, "")} ↗
                   </span>
