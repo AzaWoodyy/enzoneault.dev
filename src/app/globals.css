@@ -13,6 +13,12 @@
   --color-thread: rgb(56 110 190);
 }
 
+/* Safari fills the area under its bottom toolbar with the root background, not the page.
+   Dark like the bottom of the footer image, while the body keeps the paper. */
+html {
+  background-color: #10170d;
+}
+
 /* Static ASCII texture for screens where the field does not animate (touch, reduced motion).
    The exact complement of the canvas condition in ascii-field.tsx; hidden elements don't fetch their image. */
 .ascii-texture {
