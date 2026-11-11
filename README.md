@@ -17,17 +17,17 @@ cd enzoneault.dev
 Install the dependencies
 
 ```bash
-npm install
+pnpm install
 ```
 
 ## Launch the project
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 ## Lint the project
 
 ```bash
-npm run lint
+pnpm lint
 ```
