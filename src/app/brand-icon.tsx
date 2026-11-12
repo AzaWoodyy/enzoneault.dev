@@ -40,6 +40,11 @@ const icons = {
     glyph: "#4FC08D",
     d: "M24,1.61H14.06L12,5.16,9.94,1.61H0L12,22.39ZM12,14.08,5.16,2.23H9.59L12,6.41l2.41-4.18h4.43Z",
   },
+  langgraph: {
+    tile: "#1C3C3C",
+    glyph: "#7FC8FF",
+    d: "M5 19H10A5 5 0 115 14ZM19 14A5 5 0 1114 19H19ZM10 5A5 5 0 105 10V5ZM19 5V10A5 5 0 1014 5Z",
+  },
   github: {
     tile: "#181717",
     glyph: "#ffffff",
