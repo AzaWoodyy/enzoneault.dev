@@ -26,6 +26,8 @@ export const intro: readonly { text: string; icon?: BrandIconName }[] = [
   { text: "React Native", icon: "react" },
   { text: " et " },
   { text: "Tauri", icon: "tauri" },
+  { text: ", les agents IA avec " },
+  { text: "LangGraph", icon: "langgraph" },
   { text: ", le déploiement sur " },
   { text: "Kubernetes", icon: "kubernetes" },
   { text: "." },
