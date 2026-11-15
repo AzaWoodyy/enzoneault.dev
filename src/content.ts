@@ -133,6 +133,12 @@ export type Project = {
 
 export const projects: readonly Project[] = [
   {
+    name: "Farsight",
+    description: "Un agent de recherche en langage naturel sur les données esport de League of Legends.",
+    stack: "Next.js · AI SDK · SQLite",
+    href: "https://askfarsight.com",
+  },
+  {
     name: "homelab-ai",
     description: "Serveur IA auto-hébergé sur un PC : LLM locaux, voix hors ligne et dashboard sécurisé via Tailscale.",
     stack: "PowerShell · React · Ollama",
