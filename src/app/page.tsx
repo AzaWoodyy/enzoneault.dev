@@ -69,9 +69,19 @@ const personJsonLd = {
   sameAs: links.map((link) => link.href),
 };
 
+// Site name for Google results ("Enzo Neault" instead of the bare domain).
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: profile.name,
+  alternateName: "enzoneault.dev",
+  url: "https://www.enzoneault.dev/",
+};
+
 export default function Home() {
   return (
     <div className="relative isolate flex min-h-screen flex-col">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c") }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c") }} />
       <AsciiField />
       <div aria-hidden="true" className="ascii-texture pointer-events-none absolute inset-0 -z-10" />
