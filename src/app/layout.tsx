@@ -5,7 +5,9 @@ import { GeistSerif } from "geist/font/serif/variable";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
-const description = "Enzo Neault, développeur à Annecy : expérience, projets et formation.";
+// Long enough (~150 characters) for Google to use it as the search snippet instead of rewriting it from the page text.
+const description =
+  "Enzo Neault, développeur full-stack à Annecy depuis 2016 : agents IA, React, React Native, NestJS, Laravel, Symfony et Vue. Expérience, projets et contact.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.enzoneault.dev"),
