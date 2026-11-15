@@ -3,7 +3,7 @@ import { AsciiField } from "./ascii-field";
 import { BrandIcon } from "./brand-icon";
 import { ScrollThread } from "./scroll-thread";
 import footer from "~/assets/footer-landscape.jpg";
-import { education, experience, footerAlt, intro, languages, links, profile, projects, type TimelineEntry, tools } from "~/content";
+import { education, experience, footerAlt, intro, languages, links, profile, projects, type Project, type TimelineEntry, tools } from "~/content";
 
 function SectionTitle({ children }: { children: string }) {
   return <h2 className="font-mono text-[0.6875rem] tracking-wide text-ink/65 uppercase">{children}</h2>;
@@ -26,6 +26,31 @@ function Timeline({ entries }: { entries: readonly TimelineEntry[] }) {
         </li>
       ))}
     </ol>
+  );
+}
+
+const featuredProjects = projects.filter((project) => project.site);
+const otherProjects = projects.filter((project) => !project.site);
+
+// A live project, set above the list without a container: the title opens the site, the links name each destination.
+function FeaturedProject({ project }: { project: Project }) {
+  return (
+    <div className="mt-5">
+      <a href={project.site} className="featured-head block">
+        <span className="block text-[1.25rem] leading-snug font-medium tracking-tight text-ink">{project.name}</span>
+        <span className="mt-1 block text-pretty text-[0.875rem] text-ink/75">{project.description}</span>
+      </a>
+      <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-[0.8125rem]">
+        <a href={project.site} className="featured-link font-mono text-[0.75rem] text-ink">
+          {project.site?.replace(/^https:\/\/(www\.)?/, "")} ↗
+        </a>
+        <a href={project.href} className="featured-link flex items-center gap-2 text-ink">
+          <BrandIcon name="github" className="text-[0.8125rem]" />
+          Code
+        </a>
+        <span className="ml-auto hidden font-mono text-[0.6875rem] text-ink/55 sm:inline">{project.stack}</span>
+      </div>
+    </div>
   );
 }
 
@@ -87,8 +112,11 @@ export default function Home() {
 
         <section className="reveal [--i:3] mt-16">
           <SectionTitle>Projets</SectionTitle>
-          <ul className="mt-5 divide-y divide-ink/10 border-y border-ink/10">
-            {projects.map((project) => (
+          {featuredProjects.map((project) => (
+            <FeaturedProject key={project.href} project={project} />
+          ))}
+          <ul className={`${featuredProjects.length > 0 ? "mt-6" : "mt-5"} divide-y divide-ink/10 border-y border-ink/10`}>
+            {otherProjects.map((project) => (
               <li key={project.href}>
                 <a href={project.href} className="group block py-4">
                   <span className="flex items-baseline justify-between gap-4">

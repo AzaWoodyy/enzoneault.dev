@@ -141,6 +141,29 @@ html {
   }
 }
 
+/* Featured project: the title turns to the thread blue on hover, the links firm up their underline. */
+.featured-head > span:first-child {
+  transition: color 150ms ease-out;
+}
+
+.featured-link {
+  text-decoration-line: underline;
+  text-decoration-color: rgb(29 27 24 / 0.25);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 150ms ease-out;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .featured-head:hover > span:first-child {
+    color: var(--color-thread);
+  }
+
+  .featured-link:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
 /* Entrance: seen once per visit, so it may carry a little delight. Stagger with `[--i:n]`.
    Only transform and opacity, so it stays on the compositor. */
 .reveal {
