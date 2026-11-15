@@ -32,32 +32,25 @@ function Timeline({ entries }: { entries: readonly TimelineEntry[] }) {
 const featuredProjects = projects.filter((project) => project.site);
 const otherProjects = projects.filter((project) => !project.site);
 
-// A live project, lifted out of the list: the card opens the site, the GitHub button the code.
+// A live project, set above the list without a container: the title opens the site, the links name each destination.
 function FeaturedProject({ project }: { project: Project }) {
   return (
-    <article className="featured-card relative mt-5 rounded-2xl bg-white/70 p-5 ring-1 ring-ink/10">
-      <h3 className="font-serif text-2xl tracking-tight text-ink">
-        <a href={project.site} className="after:absolute after:inset-0 after:rounded-2xl">
-          {project.name}
+    <div className="mt-5">
+      <a href={project.site} className="featured-head block">
+        <span className="block text-[1.25rem] leading-snug font-medium tracking-tight text-ink">{project.name}</span>
+        <span className="mt-1 block text-pretty text-[0.875rem] text-ink/75">{project.description}</span>
+      </a>
+      <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-[0.8125rem]">
+        <a href={project.site} className="featured-link font-mono text-[0.75rem] text-ink">
+          {project.site?.replace(/^https:\/\/(www\.)?/, "")} ↗
         </a>
-      </h3>
-      <p className="mt-2 text-pretty text-[0.875rem] text-ink/75">{project.description}</p>
-      <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
-        <span className="font-mono text-[0.6875rem] text-ink/65">{project.stack}</span>
-        <span className="flex items-center gap-2">
-          <span className="featured-site inline-flex h-8 items-center rounded-full bg-ink px-3.5 font-mono text-[0.75rem] text-paper">
-            {project.site?.replace(/^https:\/\/(www\.)?/, "")} ↗
-          </span>
-          <a
-            href={project.href}
-            className="featured-code relative z-10 inline-flex h-8 items-center gap-2 rounded-full px-3 text-[0.8125rem] text-ink ring-1 ring-ink/15"
-          >
-            <BrandIcon name="github" className="text-[0.8125rem]" />
-            Code
-          </a>
-        </span>
+        <a href={project.href} className="featured-link flex items-center gap-2 text-ink">
+          <BrandIcon name="github" className="text-[0.8125rem]" />
+          Code
+        </a>
+        <span className="ml-auto hidden font-mono text-[0.6875rem] text-ink/55 sm:inline">{project.stack}</span>
       </div>
-    </article>
+    </div>
   );
 }
 
