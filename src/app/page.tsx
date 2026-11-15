@@ -3,7 +3,7 @@ import { AsciiField } from "./ascii-field";
 import { BrandIcon } from "./brand-icon";
 import { ScrollThread } from "./scroll-thread";
 import footer from "~/assets/footer-landscape.jpg";
-import { education, experience, footerAlt, intro, languages, links, profile, projects, type TimelineEntry, tools } from "~/content";
+import { education, experience, footerAlt, intro, languages, links, profile, projects, type Project, type TimelineEntry, tools } from "~/content";
 
 function SectionTitle({ children }: { children: string }) {
   return <h2 className="font-mono text-[0.6875rem] tracking-wide text-ink/65 uppercase">{children}</h2>;
@@ -26,6 +26,38 @@ function Timeline({ entries }: { entries: readonly TimelineEntry[] }) {
         </li>
       ))}
     </ol>
+  );
+}
+
+const featuredProjects = projects.filter((project) => project.site);
+const otherProjects = projects.filter((project) => !project.site);
+
+// A live project, lifted out of the list: the card opens the site, the GitHub button the code.
+function FeaturedProject({ project }: { project: Project }) {
+  return (
+    <article className="featured-card relative mt-5 rounded-2xl bg-white/70 p-5 ring-1 ring-ink/10">
+      <h3 className="font-serif text-2xl tracking-tight text-ink">
+        <a href={project.site} className="after:absolute after:inset-0 after:rounded-2xl">
+          {project.name}
+        </a>
+      </h3>
+      <p className="mt-2 text-pretty text-[0.875rem] text-ink/75">{project.description}</p>
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+        <span className="font-mono text-[0.6875rem] text-ink/65">{project.stack}</span>
+        <span className="flex items-center gap-2">
+          <span className="featured-site inline-flex h-8 items-center rounded-full bg-ink px-3.5 font-mono text-[0.75rem] text-paper">
+            {project.site?.replace(/^https:\/\/(www\.)?/, "")} ↗
+          </span>
+          <a
+            href={project.href}
+            className="featured-code relative z-10 inline-flex h-8 items-center gap-2 rounded-full px-3 text-[0.8125rem] text-ink ring-1 ring-ink/15"
+          >
+            <BrandIcon name="github" className="text-[0.8125rem]" />
+            Code
+          </a>
+        </span>
+      </div>
+    </article>
   );
 }
 
@@ -87,8 +119,11 @@ export default function Home() {
 
         <section className="reveal [--i:3] mt-16">
           <SectionTitle>Projets</SectionTitle>
-          <ul className="mt-5 divide-y divide-ink/10 border-y border-ink/10">
-            {projects.map((project) => (
+          {featuredProjects.map((project) => (
+            <FeaturedProject key={project.href} project={project} />
+          ))}
+          <ul className={`${featuredProjects.length > 0 ? "mt-6" : "mt-5"} divide-y divide-ink/10 border-y border-ink/10`}>
+            {otherProjects.map((project) => (
               <li key={project.href}>
                 <a href={project.href} className="group block py-4">
                   <span className="flex items-baseline justify-between gap-4">

@@ -141,6 +141,48 @@ html {
   }
 }
 
+/* Featured project: a sheet lifted off the paper. It rises on hover, except while the code button is hovered. */
+.featured-card {
+  box-shadow:
+    0 1px 2px rgb(29 27 24 / 0.06),
+    0 8px 24px -12px rgb(29 27 24 / 0.18);
+  transition:
+    transform 200ms var(--ease-out-strong),
+    box-shadow 200ms var(--ease-out-strong);
+}
+
+.featured-site,
+.featured-code {
+  transition:
+    background-color 150ms ease-out,
+    transform 160ms var(--ease-out-strong);
+}
+
+.featured-card:has(h3 a:active) {
+  transform: scale(0.995);
+}
+
+.featured-code:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .featured-card:hover:not(:has(.featured-code:hover)) {
+    transform: translateY(-2px);
+    box-shadow:
+      0 1px 2px rgb(29 27 24 / 0.06),
+      0 14px 32px -12px rgb(29 27 24 / 0.24);
+  }
+
+  .featured-card:hover:not(:has(.featured-code:hover)) .featured-site {
+    background: rgb(29 27 24 / 0.86);
+  }
+
+  .featured-code:hover {
+    background: rgb(29 27 24 / 0.06);
+  }
+}
+
 /* Entrance: seen once per visit, so it may carry a little delight. Stagger with `[--i:n]`.
    Only transform and opacity, so it stays on the compositor. */
 .reveal {
@@ -201,8 +243,15 @@ html {
     animation: none;
   }
 
-  .brand-tile {
+  .brand-tile,
+  .featured-card,
+  .featured-site,
+  .featured-code {
     transition: none;
+  }
+
+  .featured-card:hover:not(:has(.featured-code:hover)) {
+    transform: none;
   }
 
   .brand-chip .brand-tile {

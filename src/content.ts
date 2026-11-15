@@ -128,7 +128,10 @@ export type Project = {
   name: string;
   description: string;
   stack: string;
+  /** The source code. */
   href: string;
+  /** A live site: the project is then featured as a card above the list. */
+  site?: string;
 };
 
 export const projects: readonly Project[] = [
@@ -136,7 +139,8 @@ export const projects: readonly Project[] = [
     name: "Farsight",
     description: "Un agent de recherche en langage naturel sur les données esport de League of Legends.",
     stack: "Next.js · AI SDK · SQLite",
-    href: "https://askfarsight.com",
+    href: "https://github.com/AzaWoodyy/farsight",
+    site: "https://askfarsight.com",
   },
   {
     name: "homelab-ai",
